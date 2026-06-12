@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KiraBot — WhatsApp POS untuk Usahawan B40</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── Page Header ─────────────────────────────────────────────────── -->
+  <header class="page-header">
+    <div class="header-brand">
+      <div class="brand-icon">🤖</div>
+      <div class="brand-text">
+        <span class="brand-name">KiraBot</span>
+        <span class="brand-tagline" id="tagline">WhatsApp POS untuk Usahawan B40</span>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="lang-toggle">
+        <button class="lang-btn active" id="btn-bm" onclick="setLanguage('bm')">
+          🇲🇾 Bahasa Melayu
+        </button>
+        <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">
+          🇬🇧 English
+        </button>
+      </div>
+      <a href="/supplier.html" style="
+        padding:7px 14px;border-radius:20px;
+        border:1.5px solid rgba(255,165,0,0.7);
+        background:rgba(255,152,0,0.15);
+        color:#FFD54F;font-size:12px;font-weight:600;
+        text-decoration:none;white-space:nowrap;
+        transition:all .2s;font-family:inherit;">
+        🏭 <span data-bm="Portal Pembekal" data-en="Supplier Portal">Portal Pembekal</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ── Workflow Stage Indicators ──────────────────────────────────── -->
+  <div class="stage-bar">
+    <div class="stage-item active" id="stage-onboarding">
+      <div class="stage-dot">1</div>
+      <span class="stage-label" data-bm="Onboarding" data-en="Onboarding">Onboarding</span>
+    </div>
+    <div class="stage-connector"></div>
+    <div class="stage-item" id="stage-transactions">
+      <div class="stage-dot">2</div>
+      <span class="stage-label" data-bm="Transaksi" data-en="Transactions">Transaksi</span>
+    </div>
+    <div class="stage-connector"></div>
+    <div class="stage-item" id="stage-close">
+      <div class="stage-dot">3</div>
+      <span class="stage-label" data-bm="Tutup Kedai" data-en="Daily Close">Tutup Kedai</span>
+    </div>
+    <div class="stage-connector"></div>
+    <div class="stage-item" id="stage-reports">
+      <div class="stage-dot">4</div>
+      <span class="stage-label" data-bm="Laporan" data-en="Reports">Laporan</span>
+    </div>
+  </div>
+
+  <!-- ── Main Layout ─────────────────────────────────────────────────── -->
+  <main class="main-layout">
+
+    <!-- Left: Feature tips panel -->
+    <aside class="tips-panel" id="tips-panel">
+      <div class="tips-title" id="tips-title">💡 Cuba Taip:</div>
+      <div class="tip-chips" id="tip-chips">
+        <!-- Injected by JS based on stage -->
+      </div>
+      <div class="stats-box" id="stats-box" style="display:none;">
+        <div class="stats-title" id="stats-title">📊 Hari Ini</div>
+        <div class="stat-row">
+          <span class="stat-label" data-bm="Jualan" data-en="Sales">Jualan</span>
+          <span class="stat-value green" id="stat-sales">RM 0.00</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label" data-bm="Belanja" data-en="Expenses">Belanja</span>
+          <span class="stat-value red" id="stat-expenses">RM 0.00</span>
+        </div>
+        <div class="stat-row border-top">
+          <span class="stat-label bold" data-bm="Untung Bersih" data-en="Net Profit">Untung Bersih</span>
+          <span class="stat-value bold" id="stat-profit">RM 0.00</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Centre: Phone frame with WhatsApp UI -->
+    <div class="phone-wrapper">
+      <div class="phone-frame">
+        <div class="phone-notch"></div>
+
+        <!-- WhatsApp UI -->
+        <div class="wa-app">
+
+          <!-- WA Header -->
+          <div class="wa-header">
+            <button class="wa-back" aria-label="Back">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="#ffffff">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
+            <div class="wa-avatar">🤖</div>
+            <div class="wa-contact-info">
+              <div class="wa-contact-name">KiraBot</div>
+              <div class="wa-status" id="wa-status">Dalam talian</div>
+            </div>
+            <div class="wa-actions">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="rgba(255,255,255,0.8)">
+                <path d="M17 10.5V7a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4z"/>
+              </svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="rgba(255,255,255,0.8)">
+                <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24 11.36 11.36 0 0 0 3.57.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2z"/>
+              </svg>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="rgba(255,255,255,0.8)">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- WA Chat Area -->
+          <div class="wa-chat" id="wa-chat">
+            <!-- Date badge -->
+            <div class="date-badge" id="date-badge"></div>
+            <!-- Messages injected here -->
+          </div>
+
+          <!-- Typing Indicator (hidden) -->
+          <div class="typing-indicator" id="typing-indicator">
+            <div class="typing-bubble">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <!-- WA Input Bar -->
+          <div class="wa-input-bar">
+            <button class="wa-emoji-btn" aria-label="Emoji">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="#8696a0">
+                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/>
+              </svg>
+            </button>
+            <input
+              type="text"
+              id="chat-input"
+              class="wa-input"
+              placeholder="Taip mesej..."
+              autocomplete="off"
+              autocorrect="off"
+            />
+            <button class="wa-attach-btn" aria-label="Attach">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="#8696a0">
+                <path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5a2.5 2.5 0 0 1 5 0v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5a2.5 2.5 0 0 0 5 0V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/>
+              </svg>
+            </button>
+            <button class="wa-send-btn" id="wa-send-btn" aria-label="Send" onclick="sendMessage()">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff" id="send-icon">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+              </svg>
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="#ffffff" id="mic-icon" style="display:none">
+                <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+              </svg>
+            </button>
+          </div>
+
+        </div><!-- /wa-app -->
+      </div><!-- /phone-frame -->
+    </div><!-- /phone-wrapper -->
+
+    <!-- Right: Quick action panel -->
+    <aside class="actions-panel">
+      <button class="action-btn restart-btn" onclick="restartDemo()">
+        🔄 <span data-bm="Mula Semula" data-en="Restart Demo">Mula Semula</span>
+      </button>
+      <button class="action-btn pdf-btn" id="pdf-btn" onclick="downloadPDF()" disabled>
+        📥 <span data-bm="Muat Turun PDF" data-en="Download PDF">Muat Turun PDF</span>
+      </button>
+      <div class="quick-title" id="quick-title">Contoh Input:</div>
+      <div class="quick-actions" id="quick-actions">
+        <!-- Dynamic quick-reply chips injected by JS -->
+      </div>
+    </aside>
+
+  </main>
+
+  <!-- ── Footer ──────────────────────────────────────────────────────── -->
+  <footer class="page-footer">
+    <span>KiraBot © 2026 — IIUM G5 |</span>
+    <span data-bm=" Projek MicroSaaS untuk Usahawan B40 Malaysia" data-en=" MicroSaaS Project for B40 Entrepreneurs, Malaysia"> Projek MicroSaaS untuk Usahawan B40 Malaysia</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

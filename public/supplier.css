@@ -1,0 +1,162 @@
+/* ── Supplier Portal Theme (Orange/Amber) ──────────────────────────────── */
+
+:root {
+  --sup-primary:   #E65100;   /* deep orange header */
+  --sup-accent:    #FF9800;   /* amber accent */
+  --sup-light:     #FFF3E0;   /* very light orange bg */
+  --sup-chat-bg:   #FBE9E7;   /* warm chat background */
+  --sup-bubble:    #FFE0B2;   /* supplier message bubble (outgoing) */
+  --sup-val-color: #E65100;
+}
+
+/* ── Body override ─────────────────────────────────────────────────────── */
+.supplier-theme { background: #FFF8F0; }
+
+/* ── Header ────────────────────────────────────────────────────────────── */
+.sup-header { background: var(--sup-primary) !important; }
+
+.sup-brand-icon {
+  background: var(--sup-accent) !important;
+}
+
+.sup-tagline { color: rgba(255,255,255,0.75) !important; }
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.switch-portal-btn {
+  padding: 7px 14px;
+  border-radius: 20px;
+  border: 1.5px solid rgba(255,255,255,0.5);
+  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.9);
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.switch-portal-btn:hover {
+  background: rgba(255,255,255,0.25);
+  color: #fff;
+}
+
+/* ── Stage bar ─────────────────────────────────────────────────────────── */
+.sup-stage-bar { background: #fff7f0 !important; border-bottom-color: #ffe0c2 !important; }
+
+.sup-dot { background: #e0e0e0; color: #999; }
+.stage-item.active .sup-dot {
+  background: var(--sup-primary) !important;
+  box-shadow: 0 0 0 4px rgba(230,81,0,0.15) !important;
+}
+.stage-item.done .sup-dot { background: var(--sup-accent) !important; }
+.stage-item.active .stage-label { color: var(--sup-primary) !important; }
+.stage-connector.done { background: var(--sup-accent) !important; }
+
+/* ── WhatsApp header (orange) ──────────────────────────────────────────── */
+.sup-wa-header { background: var(--sup-primary) !important; }
+
+.sup-avatar {
+  background: rgba(255,255,255,0.2) !important;
+}
+
+/* ── Chat background (warm) ────────────────────────────────────────────── */
+.sup-chat-bg {
+  background-color: var(--sup-chat-bg) !important;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bf360c' fill-opacity='0.06'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+}
+
+/* ── User bubble (supplier sends = orange-toned) ───────────────────────── */
+.supplier-theme .wa-msg.user .wa-bubble {
+  background: var(--sup-bubble) !important;
+}
+.supplier-theme .wa-msg.user .wa-bubble::before {
+  border-top-color: var(--sup-bubble) !important;
+}
+.supplier-theme .bubble-ticks { color: var(--sup-accent) !important; }
+
+/* ── Send button ───────────────────────────────────────────────────────── */
+.sup-send-btn { background: var(--sup-primary) !important; }
+.sup-send-btn:hover { background: #BF360C !important; }
+
+/* ── Input bar ─────────────────────────────────────────────────────────── */
+.sup-input-bar { background: #fff3e0 !important; }
+
+/* ── Typing bubble ─────────────────────────────────────────────────────── */
+.sup-typing { background: #fff !important; }
+
+/* ── Lang toggle ───────────────────────────────────────────────────────── */
+.sup-lang.active {
+  background: var(--sup-accent) !important;
+  border-color: var(--sup-accent) !important;
+}
+
+/* ── Stats box ─────────────────────────────────────────────────────────── */
+.sup-stats-box { border-color: #ffe0c2 !important; }
+.sup-val { color: var(--sup-primary) !important; }
+
+/* ── Tips chips ────────────────────────────────────────────────────────── */
+.supplier-theme .tip-chip {
+  color: var(--sup-primary) !important;
+  border-color: #ffe0c2 !important;
+}
+.supplier-theme .tip-chip:hover {
+  background: var(--sup-primary) !important;
+  color: #fff !important;
+  border-color: var(--sup-primary) !important;
+}
+
+/* ── Quick chips ───────────────────────────────────────────────────────── */
+.supplier-theme .quick-chip {
+  border-left-color: var(--sup-primary) !important;
+}
+.supplier-theme .quick-chip:hover {
+  background: var(--sup-primary) !important;
+  color: #fff !important;
+  border-color: var(--sup-primary) !important;
+}
+
+/* ── Action buttons ────────────────────────────────────────────────────── */
+.supplier-theme .action-btn:hover {
+  border-color: var(--sup-primary) !important;
+  color: var(--sup-primary) !important;
+  background: #fff7f0 !important;
+}
+
+/* ── How it works box ──────────────────────────────────────────────────── */
+.how-it-works-box {
+  background: #fff;
+  border: 1.5px solid #ffe0c2;
+  border-radius: 14px;
+  padding: 14px;
+  margin-top: 4px;
+}
+.how-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sup-primary);
+  margin-bottom: 10px;
+}
+.how-steps { display: flex; flex-direction: column; gap: 8px; }
+.how-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11.5px;
+  color: #555;
+}
+.step-num {
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: var(--sup-accent);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
